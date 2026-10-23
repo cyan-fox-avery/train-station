@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Train Station — Prototype 1</title>
+<style>
+  :root { color-scheme: light; }
+  body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: #eaf3f7; color: #1d2b2e; line-height: 1.5; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #24484f; color: #fff; }
+  header b { font-size: 18px; }
+  header span { font-size: 13px; opacity: .9; }
+  main { max-width: 860px; margin: 0 auto; padding: 16px; }
+  .scene { background: linear-gradient(#bfe3f2, #eaf3f7 70%); border: 3px solid #24484f; border-radius: 12px; padding: 16px; min-height: 300px; position: relative; overflow: hidden; }
+  .clock { width: 110px; height: 110px; border: 6px solid #24484f; border-radius: 50%; background: #fffdf2; margin: 8px auto; position: relative; }
+  .hand { position: absolute; left: 50%; top: 50%; transform-origin: 50% 100%; background: #1d2b2e; }
+  #hourHand { width: 5px; height: 30px; margin-left: -2.5px; margin-top: -30px; }
+  #minuteHand { width: 4px; height: 42px; margin-left: -2px; margin-top: -42px; }
+  #secondHand { width: 2px; height: 46px; margin-left: -1px; margin-top: -46px; background: #b33; }
+  .centre { position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; background: #24484f; border-radius: 50%; transform: translate(-50%,-50%); }
+  .train { display: none; font-size: 44px; white-space: nowrap; }
+  .train.moving { display: block; animation: pass 6s linear forwards; }
+  @keyframes pass { from { transform: translateX(-110%); } to { transform: translateX(110%); } }
+  button { font-size: 18px; padding: 14px 18px; margin: 6px 6px 6px 0; border-radius: 10px; border: 2px solid #24484f; background: #fff; cursor: pointer; min-height: 52px; }
+  button:disabled { opacity: .45; cursor: default; }
+  button.primary { background: #ffd978; }
+  .log { background: #fff; border: 2px solid #c8d8dc; border-radius: 10px; padding: 14px; margin-top: 14px; min-height: 90px; font-size: 18px; }
+  .status { background: #fff; border: 2px solid #c8d8dc; border-radius: 10px; padding: 12px 14px; margin-top: 14px; }
+  .hidden { display: none; }
+  small { color: #44575b; }
+  h2 { margin-top: 0; }
+</style>
+</head>
+<body>
+<header><b>The Train Station</b><span>Prototype 1 — v0.1.0</span></header>
+<main>
+  <p><b>A small, abandoned rural Canadian station.</b> No quest markers, no narrator, no score. Look around, try things, and see what changes.</p>
+
+  <section id="platformView" class="scene" aria-label="Station platform">
+    <h2>The platform</h2>
+    <p>Weathered siding, ivy, dandelions through cracked concrete. A faded timetable. A switch house. And, on its pole above the platform, the clock — stopped.</p>
+    <div class="clock" aria-label="Platform clock">
+      <div class="hand" id="hourHand"></div>
+      <div class="hand" id="minuteHand"></div>
+      <div class="hand" id="secondHand"></div>
+      <div class="centre"></div>
+    </div>
+    <p id="clockState">The clock is stopped.</p>
+    <div class="train" id="train" aria-hidden="true">🚂 🚃 🚃 🚃</div>
+    <p id="trainNote">The track is quiet.</p>
+    <p id="doorState">The waiting-room door is shut, ivy-draped, with leaves drifted against its threshold.</p>
+  </section>
+
+  <section id="roomView" class="scene hidden" aria-label="Waiting room interior">
+    <h2>The waiting room</h2>
+    <p>You are inside. It smells faintly of old wood and rain. Light comes through the cleared window.</p>
+    <p><b>Faded arrivals board:</b> the writing is worn, but you can still make out times that no longer run.</p>
+    <p><b>Lost-and-found shelf:</b> one single glove, a little dusty. Nobody came back for it.</p>
+    <p><b>Maintenance notice:</b> “Platform drainage — water pooling near the platform edge.” That is the next loop. It is not in Prototype 1.</p>
+    <button id="boardBtn" type="button">Leave the arrivals board faded</button>
+    <button id="roomBackBtn" type="button">Back to the platform</button>
+    <p id="boardNote"></p>
+  </section>
+
+  <div role="group" aria-label="Actions">
+    <button id="tryDoorBtn" type="button" class="primary">Try the waiting-room door</button>
+    <button id="switchHouseBtn" type="button">Look in the switch house</button>
+    <button id="windowBtn" type="button">Look through the waiting-room window</button>
+    <button id="wanderBtn" type="button">Wander the platform</button>
+    <button id="hingeBtn" type="button">Free the hinge</button>
+    <button id="thresholdBtn" type="button">Clear the threshold</button>
+    <button id="openDoorBtn" type="button" class="primary" disabled>Open the door</button>
+    <button id="soundBtn" type="button">Sound: on</button>
+    <button id="resetBtn" type="button">Reset prototype</button>
+  </div>
+
+  <div class="log" id="log" aria-live="polite">You arrive on foot. The station is quiet. What catches your eye first?</div>
+
+  <div class="status">
+    <b>What you have:</b> <span id="inventory">Nothing yet — just your hands.</span><br>
+    <b>Door:</b> <span id="doorSummary">Shut. Hinge seized, threshold blocked.</span><br>
+    <small>Prototype 1 deliberately has no inventory economy, no ending screen, and no second train. The train passes once, early, and then it is gone.</small>
+  </div>
+
+  <p><small><b>What to test:</b> Did you notice the problem without being told? Did trying the door make sense? Did you want to look around afterwards? That is the whole test.</small></p>
+</main>
+<script>
+(function () {
+  var KEY = 'train-station-prototype-1';
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { saved = null; }
+  var state = saved || { hasOil: false, noteRead: false, triedDoor: false, hingeFree: false, thresholdClear: false, doorOpen: false, clockRunning: false, trainPassed: false, boardChoice: '' };
+  var logEl = document.getElementById('log');
+  var audioCtx = null, soundOn = true, tickTimer = null, seconds = 0;
+
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  function say(text) { logEl.textContent = text; }
+  function ensureAudio() {
+    if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} }
+    if (audioCtx && audioCtx.state === 'suspended') { audioCtx.resume(); }
+  }
+  function blip(freq, dur, type) {
+    if (!soundOn || !audioCtx) return;
+    var o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = type || 'sine'; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.12, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+    o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + dur);
+  }
+  function groan() { if (!soundOn || !audioCtx) return; blip(90, 0.6, 'sawtooth'); }
+  function tick() {
+    seconds++;
+    var s = document.getElementById('secondHand');
+    var m = document.getElementById('minuteHand');
+    if (s) s.style.transform = 'rotate(' + ((seconds % 60) * 6) + 'deg)';
+    if (m) m.style.transform = 'rotate(' + (Math.floor(seconds / 60) % 60 * 6) + 'deg)';
+    blip(1200, 0.05, 'square');
+  }
+  function startClock() {
+    if (tickTimer) return;
+    state.clockRunning = true;
+    document.getElementById('clockState').textContent = 'The clock is ticking. You can hear it from the platform.';
+    tickTimer = setInterval(tick, 1000);
+  }
+  function refresh() {
+    document.getElementById('inventory').textContent = state.hasOil ? 'Oil can (from the switch house). That is the only tool in Prototype 1.' : 'Nothing yet — just your hands.';
+    document.getElementById('doorSummary').textContent = state.doorOpen ? 'Open. Clock running.' : 'Shut. Hinge: ' + (state.hingeFree ? 'free' : 'seized') + '. Threshold: ' + (state.thresholdClear ? 'clear' : 'blocked') + '.';
+    document.getElementById('doorState').textContent = state.doorOpen ? 'The waiting-room door stands open. The clock ticks above the platform.' : 'The waiting-room door is shut, ivy-draped, with leaves drifted against its threshold.';
+    document.getElementById('openDoorBtn').disabled = !(state.hingeFree && state.thresholdClear && !state.doorOpen);
+    if (state.clockRunning) startClock();
+    if (state.boardChoice) document.getElementById('boardNote').textContent = state.boardChoice;
+    save();
+  }
+  function showRoom(show) {
+    document.getElementById('platformView').classList.toggle('hidden', show);
+    document.getElementById('roomView').classList.toggle('hidden', !show);
+  }
+  document.getElementById('tryDoorBtn').addEventListener('click', function () {
+    ensureAudio(); state.triedDoor = true;
+    if (state.doorOpen) { say('The door is already open. Go in, or stay on the platform a while.'); return; }
+    groan();
+    say('You push. The door groans and barely moves. The hinge is seized solid — this is not a locked door, it is a stuck one. Leaves are packed hard against the threshold.');
+    refresh();
+  });
+  document.getElementById('switchHouseBtn').addEventListener('click', function () {
+    ensureAudio();
+    if (!state.hasOil) {
+      state.hasOil = true; state.noteRead = true;
+      say('On an open shelf in the switch house: an oil can. Tucked beside it, a note in a hurried hand: “Third time this month the waiting-room door has stuck. Hinge seized, threshold full of leaves again. Oil is in the switch house, broom by the door. Don’t force it.” Nothing profound. Someone just kept this place going.');
+    } else {
+      say('The switch house shelf is empty now, except for dust. The note said enough.');
+    }
+    refresh();
+  });
+  document.getElementById('windowBtn').addEventListener('click', function () {
+    ensureAudio();
+    say(state.doorOpen ? 'Through the window, from outside, you can see the waiting room you have already opened. It looks lived-in again, in a small way.' : 'Through the grimy window: a shadowed room, a bench, a faded board. Something in there is waiting, but the door will not move yet.');
+  });
+  document.getElementById('wanderBtn').addEventListener('click', function () {
+    ensureAudio(); blip(500, 0.08, 'triangle');
+    var notes = [
+      'A loose shutter taps, irregularly, when the wind gusts. Not on a timer — only when the wind is up, and only near the platform.',
+      'A strip of paper flutters at the threshold. Leaves, dust, and a drift that tells you which way the wind usually comes.',
+      'Near the platform edge, water has pooled and left a dark stain. A maintenance notice, somewhere inside, will say more about that later.'
+    ];
+    say(notes[Math.floor(Math.random() * notes.length)]);
+  });
+  document.getElementById('hingeBtn').addEventListener('click', function () {
+    ensureAudio();
+    if (state.hingeFree) { say('The hinge is already free. It moves, stiffly, but it moves.'); return; }
+    if (!state.hasOil) { say('The hinge is seized solid. Your hands alone will not free it. Something to loosen it would help — the switch house is worth a look.'); return; }
+    state.hingeFree = true; blip(300, 0.2, 'sine');
+    say('You work oil into the hinge, a little at a time. It gives, with a low creak. One part of the door is free. The threshold is still blocked.');
+    refresh();
+  });
+  document.getElementById('thresholdBtn').addEventListener('click', function () {
+    ensureAudio();
+    if (state.thresholdClear) { say('The threshold is already clear.'); return; }
+    state.thresholdClear = true;
+    say('You clear the threshold by hand — leaves, dust, and grit, swept aside. No tool needed for this part. Just patience.');
+    refresh();
+  });
+  document.getElementById('openDoorBtn').addEventListener('click', function () {
+    ensureAudio();
+    if (!(state.hingeFree && state.thresholdClear)) return;
+    state.doorOpen = true; startClock(); blip(700, 0.3, 'sine');
+    say('The door opens. And above the platform, the clock starts again. Tick. Tick. Tick. A dead room — a dead station — is keeping time again.');
+    showRoom(true); refresh();
+  });
+  document.getElementById('roomBackBtn').addEventListener('click', function () { showRoom(false); say('Back on the platform. The clock is still ticking.'); });
+  document.getElementById('boardBtn').addEventListener('click', function () {
+    state.boardChoice = 'You leave the arrivals board faded. It stays worn, and that feels honest — the station is old, and not everything needs scrubbing clean. Leaving patina is not neglect.';
+    document.getElementById('boardNote').textContent = state.boardChoice; refresh();
+  });
+  document.getElementById('soundBtn').addEventListener('click', function () {
+    soundOn = !soundOn; this.textContent = soundOn ? 'Sound: on' : 'Sound: off';
+    if (soundOn) ensureAudio();
+  });
+  document.getElementById('resetBtn').addEventListener('click', function () {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    location.reload();
+  });
+  // One train, early. It passes once and does not come back in Prototype 1.
+  if (!state.trainPassed) {
+    setTimeout(function () {
+      var t = document.getElementById('train');
+      t.classList.add('moving');
+      document.getElementById('trainNote').textContent = 'A train passes. It does not stop.';
+      if (audioCtx) blip(140, 1.2, 'sawtooth');
+      setTimeout(function () {
+        state.trainPassed = true;
+        document.getElementById('trainNote').textContent = 'The train is gone. That was the only train in Prototype 1.';
+        refresh();
+      }, 6200);
+    }, 12000);
+  } else {
+    document.getElementById('trainNote').textContent = 'The train is gone. That was the only train in Prototype 1.';
+  }
+  if (state.doorOpen) { /* room is entered via Open, platform shown on reload */ }
+  refresh();
+})();
+</script>
+</body>
+</html>
