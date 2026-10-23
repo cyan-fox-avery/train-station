@@ -208,6 +208,36 @@ platform. The train is the long arc; the room answering back is the loop.
   moment rather than propping it up. If it doesn't satisfy, change the
   environment before adding instruction text.
 
+### Prototype 1.3 scope (updated 2026-10-23, from Mira's motivation challenge)
+
+- Scene selector, not locomotion: forecourt / side path / platform /
+  waiting room as illustrated viewpoints, before investing in movement.
+- Door reward is a changed composition, not a shortcut: opening the
+  door gives a new view and a new interior, with daylight revealing the
+  ticket wicket, worn floorboards, and a trace of the caretaker. No time
+  pressure, stamina, or wet penalty is invented to make "dry and direct"
+  matter.
+- Single interior discovery: wipe a circle clear in the grimed
+  waiting-room window. A deliberate action, not a scrubbing simulator.
+  Result: a framed view of platform, clock, and tracks from inside.
+  Player can return to that window later; a later train is noticed
+  from that vantage. No journal given away; grime itself is the trace
+  of how long the room has been closed.
+- Opening sequence as a test, not a mandatory script: forecourt →
+  optional exterior path (stopped clock, platform, old station name
+  sign with a missing letter — optional, never required, never
+  punished) → door in either order → shutter independently optional →
+  door opens to new view/interior, clock stays stopped → player who
+  never repairs the door still appreciates the outside station.
+- Early train is missable by design: no pausing, interrupting, or
+  cinematic camera. Still clock + abandoned room carry the premise
+  independently. Sound/vibration may naturally catch attention.
+- Visual treatment: small, illustrated views built in the prototype
+  (forecourt + interior reveal) with flat colour, light shaft, shadows,
+  and readable spatial relationships — not an expensive art pass, and
+  NOT photo-based references of a real station, to avoid implying a
+  real station is our fictional station.
+
 ### Prototype 1.3 scope (next build, from 2026-10-23 discussion)
 
 - Separate door and clock repairs in logic: door opens, clock stays
