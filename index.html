@@ -20,7 +20,8 @@
   .centre { position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; background: #24484f; border-radius: 50%; transform: translate(-50%,-50%); }
   .train { display: none; font-size: 44px; white-space: nowrap; }
   .train.moving { display: block; animation: pass 6s linear forwards; }
-  @keyframes pass { from { transform: translateX(-110%); } to { transform: translateX(110%); } }
+  @keyframes pass { from { transform: translateX(110%); } to { transform: translateX(-110%); } }
+  /* Engine first: the locomotive is on the left, so the train travels left. v0.1.0 travelled right, which read as backwards. */
   button { font-size: 18px; padding: 14px 18px; margin: 6px 6px 6px 0; border-radius: 10px; border: 2px solid #24484f; background: #fff; cursor: pointer; min-height: 52px; }
   button:disabled { opacity: .45; cursor: default; }
   button.primary { background: #ffd978; }
@@ -32,9 +33,10 @@
 </style>
 </head>
 <body>
-<header><b>The Train Station</b><span>Prototype 1 — v0.1.0</span></header>
+<header><b>The Train Station</b><span>Prototype 1 — v0.1.1</span></header>
 <main>
   <p><b>A small, abandoned rural Canadian station.</b> No quest markers, no narrator, no score. Look around, try things, and see what changes.</p>
+  <p><button id="beginBtn" type="button" class="primary">Begin — tap here first (turns sound on)</button> <small id="beginNote">Sound needs one tap on iPad/iPhone before it can play. The train will pass shortly after you begin, not before.</small></p>
 
   <section id="platformView" class="scene" aria-label="Station platform">
     <h2>The platform</h2>
@@ -200,20 +202,33 @@
     try { localStorage.removeItem(KEY); } catch (e) {}
     location.reload();
   });
-  // One train, early. It passes once and does not come back in Prototype 1.
-  if (!state.trainPassed) {
+  // One train, early — but only after a tap, so iOS/Safari will actually allow sound.
+  // v0.1.0 started the train on load, before any tap, so it passed silently.
+  var trainStarted = false;
+  function startTrain() {
+    if (trainStarted || state.trainPassed) return;
+    trainStarted = true;
     setTimeout(function () {
       var t = document.getElementById('train');
       t.classList.add('moving');
-      document.getElementById('trainNote').textContent = 'A train passes. It does not stop.';
-      if (audioCtx) blip(140, 1.2, 'sawtooth');
+      document.getElementById('trainNote').textContent = 'A train passes, engine first, heading left. It does not stop.';
+      blip(140, 1.2, 'sawtooth');
       setTimeout(function () {
         state.trainPassed = true;
         document.getElementById('trainNote').textContent = 'The train is gone. That was the only train in Prototype 1.';
         refresh();
       }, 6200);
-    }, 12000);
-  } else {
+    }, 8000);
+  }
+  document.getElementById('beginBtn').addEventListener('click', function () {
+    ensureAudio(); blip(700, 0.2, 'sine');
+    document.getElementById('beginNote').textContent = 'Sound is on. You hear wind on the platform, and a shutter tapping somewhere.';
+    say('You are on the platform. The station is quiet, except for wind and a loose shutter. The train will pass shortly.');
+    startTrain();
+  });
+  // Fallback: any other first tap also starts the train timer, so sound is never locked out.
+  document.body.addEventListener('click', function () { ensureAudio(); startTrain(); }, false);
+  if (state.trainPassed) {
     document.getElementById('trainNote').textContent = 'The train is gone. That was the only train in Prototype 1.';
   }
   if (state.doorOpen) { /* room is entered via Open, platform shown on reload */ }
