@@ -19,7 +19,7 @@ This document has three categories, as Mira proposed:
 
 - A small, abandoned rural Canadian railway station: weathered siding, ivy,
   dandelions growing through cracked concrete, an old railway clock, a
-  switch house, and a nearby dirt-road crossing.
+  retired lineside hut, and a nearby dirt-road crossing.
 - The player gradually explores the station, uncovers its history, and
   discovers the journal of its final caretaker, a woman.
 - The player restores or preserves parts of the property.
@@ -43,9 +43,36 @@ This document has three categories, as Mira proposed:
 These supersede the original first-ten-minutes proposal in this document.
 They are working-prototype decisions, not immutable canon.
 
-### Guiding principle
+### Guiding principle (revised 2026-10-23)
 
-- The first small repair produces an audible change.
+- The first small repair produces a perceptible change, audible and
+  visible. Sound invites, never is the only way to discover a repair.
+  Playtest protocol: every loop is played once with sound and once
+  muted; if the muted version is incomprehensible, the environment is
+  under-signalling.
+
+### Overhead layout (provisional, 2026-10-23)
+
+```
+        ACTIVE RAILS  |  low fence / closed gate — do not cross
+  ────────────────── PLATFORM ──────────────────  [clock pole]
+  [baggage end] | [agent bay + ticket wicket] | [waiting room]
+                | [public entrance — blocked] |
+  [service niche, beside the entrance: oil can + note, in view]
+  ────────────────── FORECOURT / GRAVEL ──────────────────
+  ────────────────── DIRT ROAD ──────────────────
+  east along the platform → traces of a former siding → retired lineside hut (later discovery)
+```
+
+Through-building desire: road → forecourt → blocked public entrance →
+waiting room → platform. Opening the door makes the place traversable,
+not just a room accessible. Heritage records inform this layout, they do
+not dictate a single station design: Cranberry Portage (people and goods
+moving through/beside), Lake Louise (sightline through a station you
+cannot yet cross to the platform beyond), Toronto Cabin D (an
+interlocking cabin is not evidence every rural stop had a switch house).
+Our station stays small and fictional: no second-floor residence, no
+Lake Louise scale.
 
 ### The railway is still active, but trains no longer stop here (Mira)
 
@@ -65,11 +92,21 @@ platform. The train is the long arc; the room answering back is the loop.
   not a timer players must obey. No idle waiting for trains, and no
   train-gated fallback or hint.
 
-### The clock
+### The clock — second discovery, not first payoff (decided 2026-10-23)
 
+- Door-first, clock-second. The first playable slice ends at the door
+  opening. The clock remains stopped, visible, and compelling as the
+  second discovery. Its repair must be earned by finding its actual
+  mechanism, not just "wind it later."
 - The clock is the exterior multi-faced clock on its pole above the
   platform, not an interior clock. It is the landmark the whole platform
-  reads against, and the first tick is heard from the platform.
+  reads against.
+- No documented small Canadian station example yet establishes our
+  specific multi-faced exterior pole clock or its indoor winding
+  arrangement, and a mechanism ticking inside an outdoor clock may not
+  be audible across the whole platform. That is a research gap, not a
+  license to say it existed. Do not force the clock as the first audible
+  reward until mechanism and listening distance are earned.
 - The clock mechanism is explicitly provisional: a mechanical clock ticks;
   an impulse slave clicks forward a minute at a time. Do not lock the
   first sound, or describe the tick, until the mechanism is settled
@@ -92,15 +129,21 @@ platform. The train is the long arc; the room answering back is the loop.
 - The caretaker's note names the hinge, not the solution. At most one
   found tool per loop; later repairs reuse tools already found or are
   done by hand. No new scavenger hunt per repair.
+- The first useful maintenance item is in a visible, station-side
+  service niche beside the public entrance — oil can and mundane note,
+  in the same view as the door. The note is not required. The retired
+  lineside hut is a later discovery, not a prerequisite to entering
+  the first room. The player never operates anything connected to the
+  active railway.
 - Discoverability without a quest marker or NPC: a continuous,
   weather-tied, local soundscape from arrival — a loose shutter tapping
   irregularly with wind gusts, the hinge groaning when tested, a strip
   of paper fluttering at the threshold. No fixed-timer hint, no second
   train. If a player still misses the door, that is a composition and
   sightline problem to fix in testing, not a louder hint.
-- The one hard gate is spatial, not a key chain: the clock step can't
-  be reached until the door is open. A room you can't enter yet is a
-  question, not a locked quest step.
+- The one hard gate is spatial, not a key chain: the platform can't
+  be reached through the building until the door is open. A room you
+  can't enter yet is a question, not a locked quest step.
 
 ### The loops
 
@@ -121,6 +164,14 @@ platform. The train is the long arc; the room answering back is the loop.
   satisfies with only that note, the caretaker's story deepens the
   moment rather than propping it up. If it doesn't satisfy, change the
   environment before adding instruction text.
+
+### Prototype 1.3 scope (next build, from 2026-10-23 discussion)
+
+- Separate door and clock repairs in logic: door opens, clock stays
+  stopped, clock repair marked as next. Add a Layout view with the
+  overhead map above. Rename switch house → service niche + retired
+  lineside hut throughout. Add visual shutter shift, paper flutter, and
+  door shake, so muted play still signals the repair.
 
 ### Prototype 1 scope
 
