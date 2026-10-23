@@ -74,6 +74,49 @@ interlocking cabin is not evidence every rural stop had a switch house).
 Our station stays small and fictional: no second-floor residence, no
 Lake Louise scale.
 
+### Sightline / access map (2026-10-23, from Mira's spatial challenge)
+
+The waiting room is not the only physically plausible way to the
+platform. It is merely the most satisfying way.
+
+- See from the forecourt: south face, blocked public entrance, service
+  niche, clock pole above the roofline (top, not face), and through the
+  waiting-room windows a glimpse of light and a sliver of platform.
+- Reach without the door: forecourt, both sides of the building, and a
+  worn, overgrown exterior path around the baggage end to the platform's
+  east end. From there: clock face, shutter, tracks — with a low fence
+  and closed gate between player and ballast. A view, not a pleasant
+  route; muddy, exposed, no interior.
+- Enter only after the door repair: waiting-room interior, agent bay
+  and ticket wicket from inside, and the sheltered through-route
+  road → forecourt → waiting room → platform, with a new sightline
+  straight from the forecourt through the open door to the platform.
+- Active rails: never interactable, physical not magical — fence
+  intact, gate closed, ballast beyond, no cross-track action, no signal
+  or switch operation.
+- First train from the forecourt: heard first, seen second — movement
+  through windows and over the roofline, a blur not a spectacle. From
+  the exterior side path, seen fully at the platform edge, behind the
+  fence. What to notice is the station's stillness: train passes,
+  clock does not move, shutter still taps, door still sticks.
+
+### Believability principle (canon, 2026-10-23)
+
+- The station should remain believable even if the player never fixes
+  anything. Interactions reveal a place; they must not invent its
+  architecture to justify themselves. Test every new room, tool, and
+  obstacle against this: would this building still make sense if the
+  player walked away and left it exactly as found?
+- Securing the loose shutter is a separate, optional, by-hand action,
+  not bundled with oiling the door and not required for the door payoff.
+  Door payoff alone: hinge groan → smooth swing, latch catches, shaft
+  of daylight, newly accessible interior. Prototype 1.3 will show this
+  as animation (door shake on failed try, smooth swing, light shaft,
+  shutter still tapping until secured), not just prose.
+- Three-path test: door first, service niche first, or ignore both and
+  explore outside — each understandable without reading the note. The
+  note confirms, it does not unlock.
+
 ### The railway is still active, but trains no longer stop here (Mira)
 
 The world hasn't stopped moving. Only this particular place has been left
