@@ -223,6 +223,37 @@ platform. The train is the long arc; the room answering back is the loop.
   Player can return to that window later; a later train is noticed
   from that vantage. No journal given away; grime itself is the trace
   of how long the room has been closed.
+- Window-wipe, working-prototype detail (2026-10-24, from Mira's
+  action-vs-discovery challenge): adopted as the working interior
+  interaction for Prototype 1.3, not yet the definitive emotional
+  centrepiece. What is wiped is interior dust/soot film on the inside
+  surface; outside glass stays weathered, the rest of the pane stays
+  aged, and the cleared circle improves the view without becoming a
+  sharp telescope. One tap/click or key press, one short wipe sweep —
+  no dragging or precision rubbing — and the before/after must read
+  with sound muted. Test alongside it, not as canon: a single chair
+  placed slightly askew (as left, not posed as a memorial tableau)
+  with a worn patch on the sill where someone habitually rested a
+  hand or elbow — non-clickable, no text. If the pair reads
+  stage-dressed or sentimental, drop the chair first and keep the
+  sill wear alone. Geometry check before building: fix the clock
+  pole's position across forecourt and interior views, and check the
+  window's line of sight against it; the clock face sits off-centre
+  in the framed view, and if it cannot plausibly be seen through
+  that pane, change the framing (platform, fence, rails), not the
+  architecture. The view is newly intimate, not newly exclusive —
+  the player has already seen the clock from the exterior path.
+- Prototype 1.3 illustrated views: two coherent anchors (forecourt
+  and interior), with side path and platform as simple intermediate
+  views, not four polished paintings. Intermediates must still be
+  legible enough to test see / reach / enter — simple, not absent.
+- Emerging principle (adopted 2026-10-24): restoration should
+  change how the player inhabits a place, not just improve an object.
+  The door gives an inside; the window gives a way of looking out.
+  That is the test for later choices, including choices to preserve
+  something as found. Reference photographs stay behind-the-scenes
+  material for light, proportion, surface, and wear, never an in-game
+  background standing in for the fictional station.
 - Opening sequence as a test, not a mandatory script: forecourt →
   optional exterior path (stopped clock, platform, old station name
   sign with a missing letter — optional, never required, never
