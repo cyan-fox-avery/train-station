@@ -298,3 +298,21 @@ platform. The train is the long arc; the room answering back is the loop.
   room, in detail?
 - What is the clock mechanism for this specific kind of small Canadian
   station, and what does its first sound actually sound like?
+
+### Prototype 1.3 — built 2026-10-25 (working decisions, not canon)
+
+- Built on branch `prototype-1.3`, draft PR #3, v0.1.3. Scene
+  selector, not locomotion: Forecourt / Side path / Platform /
+  Waiting room, one geography, one fixed overcast afternoon.
+- Locked rules: sill wear is evidence of habit, not proof of whose
+  habit; window wipe is optional and persistent until Reset, not a
+  completion flag; in-scene affordances visible before interaction,
+  one tap to act, focus/hover labels as clarification only; fixed
+  overcast light with a soft spill, not a sunbeam; shutter latch and
+  window wipe separate and optional; clock stays stopped throughout.
+- Regression check: clock does NOT start on door opening; niche is
+  NOT called a switch house; shutter/wipe are not bundled with door.
+- Next discussion is about what the build plays like — awkward or
+  unexpectedly compelling — not another expanded pitch. No second
+  restoration, journal fragment, or clock machinery until playtest
+  argues for it.
